@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/etclabscore/chaintools/lib"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/consensus/ethash"
 	"github.com/ethereum/go-ethereum/core"
@@ -162,7 +163,7 @@ func GenerateChainAndSave(gspec *core.Genesis, blockCount uint, path string, blo
 	genesis := gspec.MustCommit(db)
 
 	// Create an ethash engine that immediately seals any generated blocks
-	eng := NewSealingEthash(ethash.Config{PowMode: ethash.ModeNormal}, nil, false)
+	eng := lib.NewSealingEthash(ethash.Config{PowMode: ethash.ModeNormal}, nil, false)
 
 	// Generate a chain where each block is created, modified, and immediately sealed
 	chain, _ := core.GenerateChain(gspec.Config, genesis, eng, db, int(blockCount), blockModifier)
