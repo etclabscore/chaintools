@@ -1,20 +1,18 @@
 package main
 
 import (
-	"plugin"
 	"testing"
 )
 
-func TestPlugin(t *testing.T) {
-	p, err := plugin.Open("./chaintools.so")
+func TestProduceTestChainFromGenesisFile(t *testing.T) {
+	err := ProduceTestChainFromGenesisFile("./examples/input/genesis.json", "./examples/output/chain.rlp", 3, 30)
 	if err != nil {
 		t.Fatal(err)
 	}
-	sym, err := p.Lookup("ProduceTestChainFromGenesisFile")
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = sym.(func(sourceGenesis, outputPath string, blockCount, blockTimeInSeconds uint) error)("./examples/input/genesis.json", "./examples/output/chain.rlp", 3, 30)
+}
+
+func TestProduceSimpleTestChain(t *testing.T) {
+	err := ProduceSimpleTestChain("./examples/output/", 3)
 	if err != nil {
 		t.Fatal(err)
 	}
