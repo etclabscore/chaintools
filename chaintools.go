@@ -1,4 +1,4 @@
-package chaintools
+package main
 
 import (
 	"io"
